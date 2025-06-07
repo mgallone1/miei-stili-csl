@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" page-range-format="minimal" default-locale="en-US">
   <info>
-    <title>Vancouver (with CrossRef and PubMed links)</title>
-    <id>http://www.zotero.org/styles/vancouver-custom-links</id>
-    <link href="http://www.zotero.org/styles/vancouver-custom-links" rel="self"/>
-    <link href="http://www.nlm.nih.gov/bsd/uniform_requirements.html" rel="documentation"/>
+    <title>Custom Vancouver (Image-Matched)</title>
+    <id>http://www.zotero.org/styles/custom-vancouver-image-matched</id>
+    <link href="http://www.zotero.org/styles/custom-vancouver-image-matched" rel="self"/>
     <author>
-      <name>Custom Style Generator</name>
+      <name>Style Generator</name>
     </author>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>A style based on Vancouver, modified to add [CrossRef] and [PubMed] links at the end of the bibliography entry.</summary>
-    <updated>2024-05-22T14:00:00+00:00</updated>
+    <summary>A custom style based on the user-provided image. Vancouver-like with specific punctuation and formatting.</summary>
+    <updated>2024-05-22T15:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
 
   <macro name="author">
     <names variable="author" suffix=". ">
       <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
+      <et-al term="et-al" font-style="italic"/>
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
@@ -26,36 +25,18 @@
     </names>
   </macro>
 
-  <macro name="editor">
-    <names variable="editor" suffix=". ">
-      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
-    </names>
-  </macro>
-
   <macro name="title">
-    <text variable="title"/>
+    <text variable="title" text-case="sentence"/>
   </macro>
 
-  <macro name="publisher">
-    <text variable="publisher-place" suffix=": "/>
-    <text variable="publisher" suffix="; "/>
-    <date variable="issued">
+  <macro name="journal-details">
+    <text variable="container-title" form="short" suffix=" "/>
+    <date variable="issued" suffix=";">
       <date-part name="year"/>
     </date>
-  </macro>
-  
-  <macro name="access-links">
-    <choose>
-        <if variable="DOI">
-            <text value="[CrossRef]" prefix=" "/>
-        </if>
-    </choose>
-    <choose>
-        <if variable="PMID">
-            <text value="[PubMed]" prefix=" "/>
-        </if>
-    </choose>
+    <text variable="volume"/>
+    <text variable="issue" prefix="(" suffix=")"/>
+    <text variable="page" prefix=":"/>
   </macro>
 
   <citation collapse="citation-number">
@@ -67,40 +48,12 @@
     </layout>
   </citation>
 
-  <bibliography et-al-min="7" et-al-use-first="6" second-field-align="flush">
-    <layout>
+  <bibliography et-al-min="8" et-al-use-first="6" second-field-align="flush" entry-spacing="0">
+    <layout suffix=".">
       <text variable="citation-number" suffix=". "/>
       <text macro="author"/>
       <text macro="title" suffix=". "/>
-      <choose>
-        <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-          <group>
-            <text macro="publisher"/>
-          </group>
-        </if>
-        <else-if type="chapter paper-conference" match="any">
-          <text term="in" text-case="capitalize-first" suffix=": "/>
-          <text macro="editor"/>
-          <text variable="container-title" suffix=". "/>
-          <text macro="publisher" suffix=". "/>
-          <group delimiter=" ">
-            <label variable="page" form="short"/>
-            <text variable="page"/>
-          </group>
-        </else-if>
-        <else>
-          <text variable="container-title" form="short" suffix=" "/>
-          <date variable="issued">
-            <date-part name="year"/>
-          </date>
-          <text value=";"/>
-          <text variable="volume"/>
-          <text variable="issue" prefix="(" suffix=")"/>
-          <text variable="page" prefix=":"/>
-        </else>
-      </choose>
-      <text value="."/>
-      <text macro="access-links"/>
+      <text macro="journal-details"/>
     </layout>
   </bibliography>
 </style>
