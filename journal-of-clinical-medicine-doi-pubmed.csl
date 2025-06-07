@@ -1,70 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" page-range-format="minimal" default-locale="en-US">
   <info>
-    <title>Journal of Clinical Medicine (Custom DOI and PubMed)</title>
-    <id>http://www.zotero.org/styles/journal-of-clinical-medicine-custom</id>
-    <link href="http://www.zotero.org/styles/journal-of-clinical-medicine-custom" rel="self"/>
-    <link href="http://www.mdpi.com/journal/jcm" rel="documentation"/>
+    <title>Vancouver (with CrossRef and PubMed links)</title>
+    <id>http://www.zotero.org/styles/vancouver-custom-links</id>
+    <link href="http://www.zotero.org/styles/vancouver-custom-links" rel="self"/>
+    <link href="http://www.nlm.nih.gov/bsd/uniform_requirements.html" rel="documentation"/>
     <author>
-      <name>Your Name</name>
+      <name>Custom Style Generator</name>
     </author>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>A style for the Journal of Clinical Medicine, modified to include DOI and PubMed links in the bibliography.</summary>
-    <updated>2024-05-22T12:30:00+00:00</updated>
+    <summary>A style based on Vancouver, modified to add [CrossRef] and [PubMed] links at the end of the bibliography entry.</summary>
+    <updated>2024-05-22T14:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
 
   <macro name="author">
-    <names variable="author" suffix=".">
+    <names variable="author" suffix=". ">
       <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-      <label form="short" prefix=", " text-case="capitalize-first"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
       <substitute>
-        <text macro="editor"/>
+        <names variable="editor"/>
+        <names variable="translator"/>
       </substitute>
     </names>
   </macro>
 
   <macro name="editor">
-    <names variable="editor" suffix=".">
+    <names variable="editor" suffix=". ">
       <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-      <label form="short" prefix=", " text-case="capitalize-first"/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
     </names>
   </macro>
-  
+
   <macro name="title">
     <text variable="title"/>
   </macro>
 
-  <macro name="container-info">
-    <group delimiter="; ">
-      <group delimiter=" ">
-        <text variable="container-title" font-style="italic" text-case="title"/>
-        <date variable="issued">
-          <date-part name="year"/>
-        </date>
-      </group>
-      <group>
-        <text variable="volume"/>
-        <text variable="page" prefix=":"/>
-      </group>
-    </group>
+  <macro name="publisher">
+    <text variable="publisher-place" suffix=": "/>
+    <text variable="publisher" suffix="; "/>
+    <date variable="issued">
+      <date-part name="year"/>
+    </date>
   </macro>
   
-  <macro name="access">
+  <macro name="access-links">
     <choose>
-      <if variable="DOI">
-        <group>
-          <text value="[CrossRef] "/>
-          <text variable="DOI" prefix="https://doi.org/"/>
-        </group>
-      </if>
-      <else-if variable="PMID">
-        <group>
-          <text value="[PubMed] "/>
-          <text variable="PMID" prefix="https://pubmed.ncbi.nlm.nih.gov/"/>
-        </group>
-      </else-if>
+        <if variable="DOI">
+            <text value="[CrossRef]" prefix=" "/>
+        </if>
+    </choose>
+    <choose>
+        <if variable="PMID">
+            <text value="[PubMed]" prefix=" "/>
+        </if>
     </choose>
   </macro>
 
@@ -72,20 +62,45 @@
     <sort>
       <key variable="citation-number"/>
     </sort>
-    <layout prefix="[" suffix="]" delimiter=",">
+    <layout prefix="(" suffix=")" delimiter=",">
       <text variable="citation-number"/>
     </layout>
   </citation>
 
-  <bibliography entry-spacing="0" second-field-align="flush">
+  <bibliography et-al-min="7" et-al-use-first="6" second-field-align="flush">
     <layout>
       <text variable="citation-number" suffix=". "/>
-      <group delimiter=". ">
-        <text macro="author"/>
-        <text macro="title"/>
-        <text macro="container-info"/>
-      </group>
-      <text macro="access" prefix=" "/>
+      <text macro="author"/>
+      <text macro="title" suffix=". "/>
+      <choose>
+        <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
+          <group>
+            <text macro="publisher"/>
+          </group>
+        </if>
+        <else-if type="chapter paper-conference" match="any">
+          <text term="in" text-case="capitalize-first" suffix=": "/>
+          <text macro="editor"/>
+          <text variable="container-title" suffix=". "/>
+          <text macro="publisher" suffix=". "/>
+          <group delimiter=" ">
+            <label variable="page" form="short"/>
+            <text variable="page"/>
+          </group>
+        </else-if>
+        <else>
+          <text variable="container-title" form="short" suffix=" "/>
+          <date variable="issued">
+            <date-part name="year"/>
+          </date>
+          <text value=";"/>
+          <text variable="volume"/>
+          <text variable="issue" prefix="(" suffix=")"/>
+          <text variable="page" prefix=":"/>
+        </else>
+      </choose>
+      <text value="."/>
+      <text macro="access-links"/>
     </layout>
   </bibliography>
 </style>
