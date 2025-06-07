@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
   <info>
-    <title>MDPI Style (Custom with Links)</title>
-    <id>http://www.zotero.org/styles/mdpi-custom-links</id>
-    <link href="http://www.zotero.org/styles/mdpi-custom-links" rel="self"/>
+    <title>Stile MDPI Definitivo (v2)</title>
+    <id>http://www.zotero.org/styles/mdpi-custom-final-v2</id>
+    <link href="http://www.zotero.org/styles/mdpi-custom-final-v2" rel="self"/>
     <author>
-      <name>Style Generator for User</name>
+      <name>Style Generator</name>
     </author>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>A custom style based on the user's target image (MDPI-like).</summary>
-    <updated>2024-05-22T16:00:00+00:00</updated>
+    <summary>Versione finale dello stile MDPI-like con link, creata per forzare l'aggiornamento della cache di Mendeley.</summary>
+    <updated>2024-05-22T17:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
 
