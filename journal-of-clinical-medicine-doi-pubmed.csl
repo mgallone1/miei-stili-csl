@@ -2,17 +2,16 @@
 <style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="sort-only" default-locale="en-US">
   <info>
     <title>Journal of Clinical Medicine (Custom DOI & PubMed)</title>
-    <id>http://www.zotero.org/styles/journal-of-clinical-medicine-doi-pubmed-custom</id>
-    <link href="http://www.zotero.org/styles/journal-of-clinical-medicine-doi-pubmed-custom" rel="self"/>
+    <id>http://www.zotero.org/styles/journal-of-clinical-medicine-custom</id>
+    <link href="http://www.zotero.org/styles/journal-of-clinical-medicine-custom" rel="self"/>
     <link href="http://www.mdpi.com/journal/jcm" rel="documentation"/>
     <author>
       <name>Your Name</name>
-      <email>your.email@example.com</email>
     </author>
     <category citation-format="numeric"/>
     <category field="medicine"/>
-    <summary>A style for the Journal of Clinical Medicine, modified to include DOI and PubMed links.</summary>
-    <updated>2024-05-22T10:00:00+00:00</updated>
+    <summary>A style for the Journal of Clinical Medicine, modified to include DOI and PubMed links in the bibliography.</summary>
+    <updated>2024-05-22T12:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
 
@@ -22,8 +21,6 @@
       <label form="short" prefix=", " text-case="capitalize-first"/>
       <substitute>
         <text macro="editor"/>
-        <text macro="translator"/>
-        <text variable="title"/>
       </substitute>
     </names>
   </macro>
@@ -34,39 +31,39 @@
       <label form="short" prefix=", " text-case="capitalize-first"/>
     </names>
   </macro>
-
-  <macro name="translator">
-    <names variable="translator" suffix=".">
-      <name sort-separator=" " initialize-with="" name-as-sort-order="all" delimiter=", " delimiter-precedes-last="always"/>
-      <label form="short" prefix=", " text-case="capitalize-first"/>
-    </names>
-  </macro>
-
+  
   <macro name="title">
     <text variable="title"/>
   </macro>
-  
-  <macro name="container-title">
-    <text variable="container-title" font-style="italic" text-case="title"/>
-  </macro>
 
-  <macro name="publisher">
+  <macro name="container-info">
     <group delimiter="; ">
-      <text variable="publisher-place"/>
-      <text variable="publisher"/>
-      <date variable="issued">
-        <date-part name="year"/>
-      </date>
+      <group delimiter=" ">
+        <text variable="container-title" font-style="italic" text-case="title"/>
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </group>
+      <group>
+        <text variable="volume"/>
+        <text variable="page" prefix=":"/>
+      </group>
     </group>
   </macro>
   
   <macro name="access">
     <choose>
       <if variable="DOI">
-        <text variable="DOI" prefix="doi:"/>
+        <group>
+          <text value="[CrossRef] "/>
+          <text variable="DOI" prefix="https://doi.org/"/>
+        </group>
       </if>
       <else-if variable="PMID">
-        <text variable="PMID" prefix="PMID: "/>
+        <group>
+          <text value="[PubMed] "/>
+          <text variable="PMID" prefix="https://pubmed.ncbi.nlm.nih.gov/"/>
+        </group>
       </else-if>
     </choose>
   </macro>
@@ -80,38 +77,15 @@
     </layout>
   </citation>
 
-  <bibliography et-al-min="7" et-al-use-first="6" second-field-align="flush">
+  <bibliography entry-spacing="0" second-field-align="flush">
     <layout>
       <text variable="citation-number" suffix=". "/>
-      <text macro="author" suffix=" "/>
-      <text macro="title" suffix=". "/>
-      <choose>
-        <if type="bill book graphic legal_case legislation motion_picture report song" match="any">
-          <group suffix=".">
-            <text macro="publisher"/>
-          </group>
-        </if>
-        <else-if type="chapter paper-conference" match="any">
-          <group suffix=".">
-            <text term="in" text-case="capitalize-first" suffix=": "/>
-            <text macro="editor"/>
-            <text variable="container-title" suffix=". "/>
-            <text macro="publisher"/>
-            <text variable="page" prefix=" pp. "/>
-          </group>
-        </else-if>
-        <else>
-          <group suffix=".">
-            <text macro="container-title" suffix=" "/>
-            <date variable="issued">
-              <date-part name="year"/>
-            </date>
-            <text variable="volume" prefix="; "/>
-            <text variable="page" prefix=":"/>
-          </group>
-        </else>
-      </choose>
-      <text macro="access"/>
+      <group delimiter=". ">
+        <text macro="author"/>
+        <text macro="title"/>
+        <text macro="container-info"/>
+      </group>
+      <text macro="access" prefix=" "/>
     </layout>
   </bibliography>
 </style>
